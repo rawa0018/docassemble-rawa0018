@@ -1,0 +1,138 @@
+ 
+# C2 Assessment
+---
+objects:
+  - endpoint: DADict
+---
+# This is our welcome screen.  We can choose to exit here
+# if we don't wish to accept the disclaimer
+# C2 Welcome Screen
+mandatory: True
+question: Welcome!
+subquestion: |
+  Welcome to the Supreme Court Form 1 Generator.  We hope you enjoy
+  using it!
+ 
+  ***Disclaimer:***  
+  **Please be sure this advice is not to be taken as genuine legal advice and is not a substitute for    seeking independent legal advice. Please ensure the resulting form is checked       by a lawyer before use.**
+ 
+  If you continue you accept these terms.
+buttons:
+  - "I accept and want to continue": continue
+  - "I do not accept": exit
+    url: http://www.courts.sa.gov.au 
+---
+# This is the ineligible endpoint
+event: endpoint['JRineligible']
+question: Eligibility requirements not met
+subquestion:
+  HELLO, THERE! This application can only create a South Australian Supreme Court Form 1. As you   are not generating a form for the Supreme Court, we will be unable to assist you. We   apologise for the inconvenience. 
+buttons:
+  - Exit: exit
+    url: http://www.courts.sa.gov.au 
+  - Restart: restart
+---
+mandatory: True
+code: |
+  if JRcourt == 'Supreme Court':
+    endpoint['JReligible']
+  else:
+    endpoint['JRineligible']
+---
+# C2 Ending/Generator Screen
+event: endpoint['JReligible']
+question: Supreme Court Form 1 Generator 
+subquestion: |
+  ### Thanks for using the Supreme Court Form 1 Generator!
+ 
+  Dear ${ JRPname },
+ 
+  This is the Supreme Court Form 1 Generator, accessed on ${ current_date } at ${ current_time }.
+ 
+  Using your answers, we have generated a Supreme Court Form 1.
+ 
+  Here are your answers.
+ 
+  Column1|Column2
+  -------|-------
+  Date|${ current_date }
+  Time|${ current_time }
+  Salutation|${ JRsalutation }
+  Full Name|${ JRPname }
+  Party|${ JRPaa }
+  Opposing Counsel|${ JRPname }
+  Party|${ JRDr }
+  Document Served|${ JRDoctype }
+  Settler|${ JRsettler } 
+  Solicitor Name|${ JRsolicitor }
+  Address:|${ JRaddress }
+  Contact Number:|${ JRnumber }
+  Facsimile:|${ JRfacs }
+  DX Box:|${ JRdx }
+  Email:|${ JRemail } 
+  L Code:|${ JRlcode }
+  P Code:|${ JRpcode }
+  
+attachment:
+ docx template file: Ex1e._Form_1_.docx
+ 
+buttons:
+  - I'm done: exit
+    url: https://flinders.edu.au
+  - Do it again: restart
+---
+# This question block asks whether it's for a Supreme Court
+question: Which Court?
+fields:
+  - Which Court is this for?: JRcourt
+    datatype: radio
+    choices:
+      - Magistrates Court
+      - District Court
+      - Supreme Court
+      - Federal Circuit Court
+      - Federal Court
+---
+question: Details
+fields:
+  - What is the date? Please use DD/MM/YYYY: current_date
+  - What is the time? Please use 24 hour format 00:00: current_time
+  - Salutation: JRsalutation
+    choices:
+      - Dr
+      - Mr
+      - Mrs
+      - Ms
+  - Full Name: JRPname
+  - Party: JRPaa
+    choices:
+      - Plaintiff
+      - Appellant 
+      - Applicant
+  - What are you serving?: JRDoctype 
+    choices: 
+      - Summons
+      - Third party notice
+      - Notice of appeal
+--- 
+question: Who are you serving?
+fields:
+  - Party Name: JRname
+  - What party are they?: JRDr
+    choices:
+      - Defendant
+      - Respondent
+---
+question: Settler and Solicitor
+fields:
+  - Settler: JRsettler
+  - Solicitor: JRsolicitor
+---
+question: Personal Details
+fields:
+  - Address: JRaddress
+  - Contact Number: JRnumber
+  - Facsimile: JRfacs
+  - DX Box: JRdx
+  - Email: JRemail 
+

@@ -1,0 +1,49 @@
+---
+mandatory: True 
+question: What is your name?
+subquestion: |
+fields: 
+ : JRname
+---
+# Example code to demonstrate the operation of if statements
+---
+mandatory: True
+question: Age eligibility
+subquestion: |
+  You entered your age as **${ JRage }**.
+  
+  You are
+  % if JRage_ok:
+    **between 18 and 50**.
+  % else:
+    **not between 18 and 50**.
+  % endif
+  Hello JR, you are just
+  % if JRage_ok:
+    ** an adult**.
+  %elif JRage > 50:
+   **an adult and are eligible for the age pension**
+  % else:
+    ** a child! **. 
+  
+  % endif
+buttons:
+  - I'm done: exit
+  - Do it again!: restart
+---
+code: |
+  if ( (JRage >= 18) and
+       (JRage < 50) ):
+    JRage_ok = True
+  else:
+    JRage_ok = False
+---
+question: What is your age?
+fields:
+  - no label: JRage
+    datatype: integer
+---
+question: What is your favorite vegetable?
+fields:
+  - Vegetable: favorite_vegetable
+---

@@ -1,0 +1,22 @@
+---
+variable name: JRname2 
+use objects: True
+data: 
+  - Kamal Rawat
+  - Bina Rawat
+  - Manisha Rawat
+  - Ravindra Rawat
+---
+question: |
+  list of family members
+mandatory: True
+subquestion: |
+ $ { family members }
+code:  |
+ JRname = [
+  'Kamal Rawat',
+  'Bina Rawat',
+  'Manisha Rawat',
+  'Ravindra Rawat'
+  ]
+---

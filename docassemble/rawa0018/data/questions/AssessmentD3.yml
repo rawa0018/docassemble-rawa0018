@@ -1,0 +1,70 @@
+---
+veriable name: JRfamily
+use objects: True
+data: 
+  - Kamal Rawat
+  - Bina Rawat
+  - Manisha Rawat
+  - Ravindra Rawat
+---
+code:  |
+ JRfamily_dnu = [
+  {'Full' 'Name': 'Kamal' 'Rawat'},
+  {'Full' 'Name': 'Bina' 'Devi'},
+  {'Full' 'Name': 'Manisha' 'Rawat'},
+  {'Full' 'Name': 'Ravindra' 'Rawat'} 
+  ]
+---
+mandatory: True
+question: Data table as a table
+subquestion: |
+   #### Our data was a table. Now we make it a table again!
+   
+ ${JRcolumn_header }
+ ${JRdashes }
+ %for JRitem in JRtable_rowa:
+ ${ JRtem }
+ %endfor
+---
+# Creates the column header
+# We'll create the column headers in this code block.
+code: |
+  # Initialise the variable as empty. Gives us a starting point
+  JRcolumn_header = ""
+  
+  # We access the first list element and iterate through its keys
+  for JRitem in JRfamily[0]:
+    JRcolumn_header += JRitem + '|'
+ 
+ # Strip off the last vertical bar.  We don't need it.
+  JRcolumn_header = JRcolumn_header[:-1]
+---
+# Creates the dashes for the table header 
+code: |
+  # We iterate up to one short of the length of the dictionary.
+  # That's because we don't want to display a tralining pipe
+  JRdashes = "---"
+  for i in range(len(JRfamily[0]) - 1):
+    JRdashes += "|---"
+---
+# This construct a list for display as the rows of the table.  Again, we iterate
+# through the first dictionary to get our list of keys, then we iterate over
+# this list to extract the values for each row.
+code: | 
+  # Initialise empty list
+  JRtable_rows = []
+  
+   # First loop.  Iterate through each list element putting each dictionary
+  # into JRitem
+  for JRitem in JRfamily:
+      # Second loop.  Get the keys so we can get the values
+       # But before we start, initialise a temporary variable in which
+      # we construct the Markdown table row
+      JDrow = ""
+      for JRkey in JRitem:
+        JDrow += str(JRitem[JRkey]) + '|'
+      # Trim the last pipe
+      JDrow = JDrow[:-1]
+      # Add to the list
+      JRtable_rows.append(JDrow)
+---

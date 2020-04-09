@@ -1,0 +1,132 @@
+---
+variable name: JRfamilylist
+use objects: True
+data:
+  - Kamal Rawat
+  - Bina Devi
+  - Manisha Rawat
+  - Ravindra Rawat
+---
+object:
+
+ -JRlist: DAList
+---
+ #Weclome to JR'S Family list!
+  ***DISCLAIMER:***
+  **This family list is true to my knowledge. If it does not, I may not to be liable for any inconvenience this may caused.**
+  
+If you want to continue you accept these terms.
+Buttion: 
+ - "I understand the terms and I would like to know more about your family!":
+continue- "I do not want know more about your family!":
+exit
+---
+ #Displaying Screen
+question: My Familylist
+mandatory: True
+Subquestion: |
+This is my family meember list:
+ *${ JRfamily.list_and_family () }*.
+this is the list in table form:
+ Item|Name
+ ---|---
+ % for JRitem in JRfamily:
+ ${ loop.index + 1 }|$ {JRitem }
+ % endfor
+This is the list in bullet form:
+ % for JRitem in JRfamily:
+ -${ JRitem }
+ % endfor
+There are **${ JRfamily.number_as_word() }** member in my family.
+
+
+
+This is a list **without** member whos name ends in a vowel.
+ Item|Name
+ ---|---
+  % for JRitem in JRfamily:
+  % if JRitem [-1]. lower() in set ('bdcfghklm'):
+  ${ loop.index + 1 }|${ JRitem }
+  % else:
+  ${loop.index + 1}|**REDACTED**
+  % endif
+  % endfor
+  buttons:
+ - Find more about my family member!: continue
+ "I do not like to know  more about your family!":
+ exit
+---
+ objects:
+ -JRinfo: DADict
+---
+ #Family Member Info Dictionary
+variable name: JRinfo
+use objects: True
+data: 
+  - First Name: Kamal
+    Last Name: Rawat
+        Age: 49
+    Hobbies: Cooking, listening music, watching movies,reading
+    likes pets?: True
+  - First Name: Bina
+    Last Name: Devi
+    Age: 49
+    Hobbies: reading, watching mvoies, cooking
+    likes pets?: True
+  - First Name: Manisha 
+    Last Name: Rawat
+    Age: 29
+    Hobbies: Listening music, watching movies
+    likes pets?: True
+  - First Name: Ravindra
+    Last Name: Rawat
+    Age: 27
+    Hobbies: playing cricket, watching movies, listening music
+    likes pets?: True
+---
+ #Codeblock/Page for family members info
+
+mandatory: True
+question: Info About My Family Members
+subquestion:  |
+ Here is more about my family members.
+ ${ JRcolum_header }
+ ${ JRdashes }
+ %for JRitem in JRtable_rows:
+  ${ JRitem }
+  %endfor
+  buttons:
+  - "I want to confirm some facts": continue
+  - I'm done: exit
+---
+ # Creats the column header
+ code:  |
+ # We iterate up to one short of the length of the dictionary so the last pipe does not need to be taken off.
+ JRdashes = "---"
+ for in range(len(JRinfor[0]) -1):
+ JRdashes += "|---"
+---
+ # This constructs a list for display as the rows of the table. 
+ and again, we iterate
+ # through the first dictionary to get our list of keys, then we iterate over
+  # this list to extract the values for each row. Dictionaryception!
+  code: |
+ # Initialise empty list
+ JRtable_raws =[]
+ # First loop.
+ Iterate through each list element putting each dictionary 
+ #into JRitem
+ for JRitem in JRinfo:
+ # second loop.
+ Get the keys so we can get the values
+ # But before we start, initalise a termporary variable in which
+ # we constrcut the Markdown table raw
+ JDraw =""
+ for JRket in JRitem
+ JDrow += str(JRitem [JRkey]) + '|'
+  # Trim the last pipe
+  JDrow =JDraw[:-1]
+  # Add to the list
+  JRtable_raws.append9JDrow)
+---
+ 

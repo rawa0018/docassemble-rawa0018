@@ -1,5 +1,5 @@
 ---
-variable name: JRname2 
+variable name: list of family members. 
 use objects: True
 data: 
   - Kamal Rawat
@@ -7,16 +7,59 @@ data:
   - Manisha Rawat
   - Ravindra Rawat
 ---
-question: |
-  list of family members
+objects: 
+  - the homeless providers list: DaList
+---
+question: Variables
 mandatory: True
 subquestion: |
- $ { family members }
+  
+objects: 
+  - the homeless providers list: DaList
+---
+question: Variables
+mandatory: True
+subquestion: |
+  Here are our different lists.
+  
+  ***JRname** is regular Python list. we can display it using meko:
+  
+  '${ JRname }'
+  
+  **family members list** was declared using 'variable name'. It's a    DAList which means we have access to some additional *methods*,    such as displaying the length of the list in words: 
+  
+  family members list has **$ { family members list.number_as_word() } ** items.
+  
+  and displaying its iteam in a more readable way:
+  
+  family memebers elements are: *${ family members list.comma_and_list() }*
+  
+  **The Homeless Providers List** is declared as a 'DAList' using an 'object' block. That means we also get access to the DAList the homeless providers list.
+  
+  The Homeless Providers List has **${ the homeless providers list. number_as_word()** items
+  
+  The Homeless Providers list elements are: *${ The homeless providers list.comma_and_list() }*
+--- 
+code:  |
+  The Homeless Providers List.append ('Ceduna Homelessness Service')
+ The Homeless Providers List.append ('Centacare Findon Family Housing')
+ The Homeless Providers List.append ('Coober Pedy Homelessness and Support Service')
+ The Homeless Providers List.append ('Eastern Adelaide Generic Homelessness Service')
+ The Homeless Providers List.append ('Financial Service Clinic')
+ 
+ 
+ The Homeless Providers List.there_are_any = False
+ The Homeless Providers List.there_is_another = False
+---
 code:  |
  JRname = [
-  'Kamal Rawat',
-  'Bina Rawat',
-  'Manisha Rawat',
-  'Ravindra Rawat'
-  ]
+   'Guitar',
+   'Alghoza',
+   'Accordion',
+   'Bagpipes',
+   'Banjo',
+   'Banjo Cello',
+   'Bass Guitar',
+   'Berimbau'
+   ]   
 ---

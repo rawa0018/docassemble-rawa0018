@@ -53,7 +53,7 @@ setup(name='docassemble.rawa0018',
       url='https://docassemble.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['atomicwrites'],
+      install_requires=[],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/rawa0018/', package='docassemble.rawa0018'),
      )

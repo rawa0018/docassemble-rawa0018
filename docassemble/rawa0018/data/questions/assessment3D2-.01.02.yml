@@ -1,0 +1,48 @@
+---
+mandatory: True
+question: Hello world!
+subquestion:  |
+ 
+ Information|Your Input
+  -----------|----------
+  Your name             | ${ JRsalutation } ${ JRfirstname } ${ JRlastname }
+  Your age              | ${ JRage }
+  Your favourite hobbies| ${ JRhobbies.true_values() }
+  Do you like pets?     | ${ JRlikepets }
+  %if JRlikespets == 'Yes':
+  % endif
+  
+buttons:
+  - I'm done: exit
+  - Do it again!: restart
+---
+question: What is your name?
+fields:
+ - Salutation: JRsalutation
+    choices:
+      - Dr
+      - Mr
+      - Mrs
+      - Ms
+  - First Name: JRfirstname
+  - Last Name: JRlastname
+--- 
+question: How old are you?
+fields:
+  - no label: JRage
+    datatype: integer
+---
+question: Hobbies
+subquestion: |
+  Please select all of your favourite hobbies.
+fields:
+  - no label: JRhobbies
+    datatype: checkboxes
+    choices:
+      - Flying
+      - Running
+      - Playing music
+      - Writing code
+      - Studying (Yes, really!)
+      - Socialising
+---
